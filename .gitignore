@@ -24,3 +24,8 @@ env
 
 ### firebase ###
 .firebase/
+
+## js ##
+node_modules/
+dist/
+build/
