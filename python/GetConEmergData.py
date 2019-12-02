@@ -73,7 +73,21 @@ def fetch_active():
 
 
 while True:
+    #normal app get the EU emergeny info 
     active_enmergencies = fetch_active()
+    #add the moomin
+    moomin=[]
+    with open("moomin.geojson") as json_file:
+        data = json.load(json_file)
+        for pol in range(0,len(data['features'])):
+            moomin.append(data['features'][pol]["geometry"]["coordinates"])
+    jsondata["moomin"]={
+        'code':'moomin',
+        'type':'finland',
+        'info': 'The moomin has fallen',
+        'poldata':moomin
+    }
+    
     with open('emergency.json', 'w') as outfile:
         json.dump(active_enmergencies, outfile)
     print('save done')
