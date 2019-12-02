@@ -1,9 +1,9 @@
 .emergency {
-  background-color: red;
-  width: 50%;
-  height: 50px;
+  background-color: #00000000;
+  width: 300px;
+  height: 300px;
   bottom: 0;
-  left:25%;
+  left:40%;
   position: absolute;
   display: flex;
   justify-content: center;

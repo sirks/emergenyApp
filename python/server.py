@@ -4,7 +4,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS
 
-from python.UserEmePolygons import userdanger
+from UserEmePolygons import userdanger
 
 app = Flask(__name__)
 
@@ -55,7 +55,7 @@ def nearby(lat, lon, lat_other, lon_other):
 
 
 def start_rest():
-    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5000, ssl_context=('../front-js/cert.pem', '../front-js/key.pem'))
 
 
 if __name__ == "__main__":
