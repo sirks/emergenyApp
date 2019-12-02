@@ -13,7 +13,7 @@ from shapely.geometry import Polygon
 
 # user location and radius
 
-deg_dis = 10 ** 3 / 111319.49079327357
+deg_dis = 10 ** 3 / 111111
 
 
 def userinpol(userlatlon, radius, jsondata):
