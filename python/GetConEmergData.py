@@ -4,6 +4,8 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
+#List of Diaster possilbe from emergency.copernicus.eu/mapping/list-of-activations (Note dont know if it all)
+dislist=["Tsunami","fire","Fire","Wildfires","Forest fire","Floods","Flooding","Severe Flooding","Tropical Cyclone","Earthquake"]
 
 def fetch_active():
     # Get the  active emergency code from copernicus
@@ -34,7 +36,12 @@ def fetch_active():
         activation = first[1:8]  # code
         if activation not in Activelist:
             continue
+        
         Info = first[10:len(first)]
+        Event=""
+        for event in dislist:
+            if event in Info:
+                Event=event
         url = f'https://emergency.copernicus.eu/mapping/list-of-components/{activation}/aemfeed'
         resp = requests.get(url)
         soup = BeautifulSoup(resp.content, features='xml')
@@ -46,7 +53,8 @@ def fetch_active():
             newpoly = []
             #  print(str(pol)[16:len(pol)-18])
             polraw = str(pol)[16:len(pol) - 18]
-            polsplit = polraw.split('' '')
+          #  print(type(polraw))
+            polsplit = polraw.split(" ")
             a = 0
             # print(len(polsplit)/2)
             for i in range(0, int(len(polsplit) / 2)):
@@ -57,6 +65,7 @@ def fetch_active():
         #  print(activation)
         jsondata[activation] = {
             'code': activation,
+            'type': Event,
             'info': Info,
             'poldata': poldata
         }
