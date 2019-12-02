@@ -1,4 +1,4 @@
-let mymap = L.map('mapid');
+let mymap = L.map('mapid').setView([0, 0], 10);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
 .addTo(mymap);
@@ -45,7 +45,7 @@ function updatePolygons() {
 }
 
 function managePolygons(position) {
-  fetch(`http://${location.hostname}:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+  fetch(`https://${location.hostname}:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
   .then(resp => resp.json())
   .then(json => drawPolygons(json))
   .catch(console.log)
