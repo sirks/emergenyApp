@@ -81,7 +81,7 @@ while True:
         data = json.load(json_file)
         for pol in range(0,len(data['features'])):
             moomin.append(data['features'][pol]["geometry"]["coordinates"])
-    jsondata["moomin"]={
+    active_enmergencies["moomin"]={
         'code':'moomin',
         'type':'finland',
         'info': 'The moomin has fallen',
