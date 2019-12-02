@@ -103,11 +103,9 @@ function sos() {
   if (x.style.visibility === "hidden") {
       x.style.visibility = "visible";
       navigator.geolocation.getCurrentPosition(saveSos);
-      myLocationIcon.iconUrl = 'assets/red.png'
   } else {
       x.style.visibility = "hidden";
       unSos();
-      myLocationIcon.iconUrl = 'assets/blue.png'
   }
 }
 
