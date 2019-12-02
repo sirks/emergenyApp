@@ -10,7 +10,7 @@ from shapely.geometry import Polygon
 from shapely.geometry import Point
 from shapely.geometry import mapping, shape
 import sys
-import getEmergencyData #import getEmergecyData will run it. 
+import GetConEmergData #import getEmergecyData will run it. 
 
 #user location and radius 
 
