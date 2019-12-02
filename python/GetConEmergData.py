@@ -4,8 +4,10 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
-#List of Diaster possilbe from emergency.copernicus.eu/mapping/list-of-activations (Note dont know if it all)
-dislist=["Tsunami","fire","Fire","Wildfires","Forest fire","Floods","Flooding","Severe Flooding","Tropical Cyclone","Earthquake"]
+# List of Diaster possilbe from emergency.copernicus.eu/mapping/list-of-activations (Note dont know if it all)
+dislist = ["Tsunami", "fire", "Fire", "Wildfires", "Forest fire", "Floods", "Flooding", "Severe Flooding",
+           "Tropical Cyclone", "Earthquake"]
+
 
 def fetch_active():
     # Get the  active emergency code from copernicus
@@ -36,12 +38,12 @@ def fetch_active():
         activation = first[1:8]  # code
         if activation not in Activelist:
             continue
-        
+
         Info = first[10:len(first)]
-        Event=""
+        Event = ""
         for event in dislist:
             if event in Info:
-                Event=event
+                Event = event
         url = f'https://emergency.copernicus.eu/mapping/list-of-components/{activation}/aemfeed'
         resp = requests.get(url)
         soup = BeautifulSoup(resp.content, features='xml')
@@ -53,7 +55,7 @@ def fetch_active():
             newpoly = []
             #  print(str(pol)[16:len(pol)-18])
             polraw = str(pol)[16:len(pol) - 18]
-          #  print(type(polraw))
+            #  print(type(polraw))
             polsplit = polraw.split(" ")
             a = 0
             # print(len(polsplit)/2)
@@ -73,7 +75,23 @@ def fetch_active():
 
 
 while True:
+    # normal app get the EU emergeny info
     active_enmergencies = fetch_active()
+    # active_enmergencies = {}
+    # add the moomin
+    moomin = []
+    with open("moomin.geojson") as json_file:
+        data = json.load(json_file)
+        for pol in range(0, len(data['features'])):
+            coords = data['features'][pol]["geometry"]["coordinates"][0]
+            moomin.append([[coord[1], coord[0]] for coord in coords])
+    active_enmergencies["moomin"] = {
+        'code': 'moomin',
+        'type': 'finland',
+        'info': 'The moomin has fallen',
+        'poldata': moomin
+    }
+
     with open('emergency.json', 'w') as outfile:
         json.dump(active_enmergencies, outfile)
     print('save done')
