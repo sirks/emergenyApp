@@ -146,7 +146,7 @@ function drawSosses(sosses) {
   current_ids.forEach(id => {
     console.log(`removing ${id}`);
     mySosses[id].remove();
-    delete mySosses[1]
+    delete mySosses[id]
   });
 }
 

@@ -4,14 +4,14 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS
 
-from UserEmePolygons import userdanger
+from python.UserEmePolygons import userdanger
 
 app = Flask(__name__)
 
 CORS(app)
 
 nearby_degrees = 0.5
-sosses = {'xxx': [60, 25]}
+sosses = {}
 
 
 @app.route('/api/polygons/', methods=['GET'])
@@ -40,8 +40,6 @@ def unsos():
 
 @app.route('/api/sosses/', methods=['GET'])
 def get_sosses():
-    sosses['xxx'][0] += 0.01
-
     my_id = request.args.get('id')
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
