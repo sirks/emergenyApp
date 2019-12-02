@@ -41,7 +41,7 @@ function updatePolygons() {
     return;
   }
   navigator.geolocation.getCurrentPosition(managePolygons);
-  setTimeout(updatePolygons, 99999)
+  setTimeout(updatePolygons, 999999)
 }
 
 function managePolygons(position) {
@@ -52,8 +52,9 @@ function managePolygons(position) {
 }
 
 function drawPolygons(polygons) {
+  debugger;
   console.log(`drawing ${polygons}`);
-  polygons.forEach(p => L.polygon(p, {
+  Object.values(polygons).forEach(p => L.polygon(p.poldata, {
       color: 'red',
       fillColor: '#f03',
     }
