@@ -33,13 +33,13 @@ def plot_image(image, factor=1):
     else:
         plt.imshow(image)
 spain_bbox = BBox(bbox=[(-3.303790, 40.116775), (-3.703790, 40.416775)], crs=CRS.WGS84)
-layers = ['SWIR','TRUE-COLOR-S2-L2A','TRUE-COLOR-S2-L1C']
-three_band_req = WmsRequest(layer='TRUE-COLOR-S2-L1C',
-                                 bbox=spain_bbox,
-                                 time='latest',
-                                 width=512,height=856,
-                                 maxcc=0.01,
-                                 instance_id=INSTANCE_ID)
+#layers = ['SWIR','TRUE-COLOR-S2-L2A','TRUE-COLOR-S2-L1C'] #In case we want to use other data from sentinel apart from RGB images
+three_band_req = WmsRequest(layer='TRUE-COLOR-S2-L1C', #Select the layer we want (this has been configured in the CONFIGURATION OPTIONS of the app
+                                 bbox=spain_bbox, #Define the LON_LAT box to see
+                                 time='latest', #Date of the image, in this case, the latest available
+                                 width=512,height=856, #Size of the image in pixels
+                                 maxcc=0.01, #Maximim % of cloud coverage. The higher, the more clouds we allow on the image
+                                 instance_id=INSTANCE_ID) #The user ID
 three_band_img = three_band_req.get_data()
 plot_image(three_band_img[-1])
 print('These %d images were taken on the following dates:' % len(three_band_img))
