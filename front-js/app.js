@@ -45,7 +45,7 @@ function updatePolygons() {
 }
 
 function managePolygons(position) {
-  fetch(`http://172.16.7.136:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+  fetch(`http://${location.hostname}:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
   .then(resp => resp.json())
   .then(json => drawPolygons(json))
   .catch(console.log)
