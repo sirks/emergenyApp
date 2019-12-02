@@ -1,0 +1,62 @@
+let mymap = L.map('mapid');
+
+L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
+.addTo(mymap);
+
+var myLocationIcon = L.icon({
+  iconUrl: 'assets/meMarker.png',
+  iconAnchor: [10, 10],
+});
+
+let myLocationMarker = undefined;
+
+updateLocation();
+
+function updateLocation() {
+  if (!navigator.geolocation) {
+    console.log('no geolocation available!');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(manageLocation);
+  setTimeout(updateLocation, 9999)
+}
+
+
+function manageLocation(position) {
+  const myLocation = [position.coords.latitude, position.coords.longitude];
+  console.log(`new location ${myLocation}`);
+  if (myLocationMarker) {
+    myLocationMarker = L.marker(myLocation).update(myLocationMarker);
+  } else {
+    mymap.setView([60.190695, 24.944458], 10);
+    myLocationMarker = L.marker(myLocation, {icon: myLocationIcon}).addTo(mymap);
+  }
+}
+
+updatePolygons();
+
+function updatePolygons() {
+  if (!navigator.geolocation) {
+    console.log('no geolocation available!');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(managePolygons);
+  setTimeout(updatePolygons, 99999)
+}
+
+function managePolygons(position) {
+  fetch(`http://172.16.7.136:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+  .then(resp => resp.json())
+  .then(json => drawPolygons(json))
+  .catch(console.log)
+}
+
+function drawPolygons(polygons) {
+  console.log(`drawing ${polygons}`);
+  polygons.forEach(p => L.polygon(p, {
+      color: 'red',
+      fillColor: '#f03',
+    }
+    ).addTo(mymap).bindPopup("Hazard here")
+  );
+}
