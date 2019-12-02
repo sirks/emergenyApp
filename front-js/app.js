@@ -98,7 +98,17 @@ function drawPolygons(polygons) {
 }
 
 function sos() {
-  navigator.geolocation.getCurrentPosition(saveSos);
+
+  var x = document.getElementById("progress");
+  if (x.style.visibility === "hidden") {
+      x.style.visibility = "visible";
+      navigator.geolocation.getCurrentPosition(saveSos);
+      myLocationIcon.iconUrl = 'assets/red.png'
+  } else {
+      x.style.visibility = "hidden";
+      unSos();
+      myLocationIcon.iconUrl = 'assets/blue.png'
+  }
 }
 
 function saveSos(position) {
@@ -106,6 +116,10 @@ function saveSos(position) {
   .catch(console.log)
 }
 
+function unSos() {
+  fetch(`https://${location.hostname}:5000/api/unsos/?id=${myId}`)
+  .catch(console.log)
+}
 
 function manageSosses(myLocation) {
   fetch(`https://${location.hostname}:5000/api/sosses/?id=${myId}&lat=${myLocation[0]}&lon=${myLocation[1]}`)
@@ -136,6 +150,10 @@ function drawSosses(sosses) {
     mySosses[id].remove();
     delete mySosses[1]
   });
+}
+
+function toggleLoader() {
+
 }
 
 document.addEventListener('DOMContentLoaded', function() {
