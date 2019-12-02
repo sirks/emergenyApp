@@ -17,7 +17,6 @@ function updateLocation() {
     console.log('no geolocation available!');
     return;
   }
-  alert('geolocation is available');
   navigator.geolocation.getCurrentPosition(manageLocation);
   setTimeout(updateLocation, 9999)
 }
@@ -46,7 +45,7 @@ function updatePolygons() {
 }
 
 function managePolygons(position) {
-  fetch(`http://${location.hostname}:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+  fetch(`https://${location.hostname}:5000/api/polygons?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
   .then(resp => resp.json())
   .then(json => drawPolygons(json))
   .catch(console.log)
