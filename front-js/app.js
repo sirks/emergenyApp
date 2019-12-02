@@ -62,8 +62,10 @@ function manageLocation(position) {
     mymap.setView(myLocation, 10);
     myLocationMarker = L.marker(myLocation, {icon: myLocationIcon}).addTo(mymap);
   }
-
-  manageSosses(myLocation)
+  manageSosses(myLocation);
+  if (document.getElementById("progress").style.visibility === "visible") {
+    saveSos(position)
+  }
 }
 
 updatePolygons();
@@ -99,13 +101,13 @@ function drawPolygons(polygons) {
 
 function sos() {
 
-  var x = document.getElementById("progress");
-  if (x.style.visibility === "hidden") {
-      x.style.visibility = "visible";
-      navigator.geolocation.getCurrentPosition(saveSos);
+  let progress = document.getElementById("progress");
+  if (progress.style.visibility === "hidden") {
+    progress.style.visibility = "visible";
+    navigator.geolocation.getCurrentPosition(saveSos);
   } else {
-      x.style.visibility = "hidden";
-      unSos();
+    progress.style.visibility = "hidden";
+    unSos();
   }
 }
 
@@ -120,6 +122,7 @@ function unSos() {
 }
 
 function manageSosses(myLocation) {
+  navigator.geolocation.getCurrentPosition(saveSos);
   fetch(`https://${location.hostname}:5000/api/sosses/?id=${myId}&lat=${myLocation[0]}&lon=${myLocation[1]}`)
   .then(resp => resp.json())
   .then(json => drawSosses(json))
@@ -150,14 +153,11 @@ function drawSosses(sosses) {
   });
 }
 
-function toggleLoader() {
 
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.fixed-action-btn');
-  var instances = M.FloatingActionButton.init(elems, {
-    direction: 'left',
-    hoverEnabled: false
-  });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   var elems = document.querySelectorAll('.fixed-action-btn');
+//   var instances = M.FloatingActionButton.init(elems, {
+//     direction: 'left',
+//     hoverEnabled: false
+//   });
+// });
