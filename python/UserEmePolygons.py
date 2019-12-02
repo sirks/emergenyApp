@@ -8,9 +8,7 @@ Created on Mon Dec  2 08:50:53 2019
 import json
 from shapely.geometry import Polygon
 from shapely.geometry import Point
-from shapely.geometry import mapping, shape
 import sys
-import GetConEmergData #import getEmergecyData will run it. 
 
 #user location and radius 
 
