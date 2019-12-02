@@ -4,7 +4,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS
 
-from python.UserEmePolygons import userdanger
+from UserEmePolygons import userdanger
 
 app = Flask(__name__)
 
