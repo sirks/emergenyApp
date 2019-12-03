@@ -49,7 +49,7 @@ function updateLocation() {
     return;
   }
   navigator.geolocation.getCurrentPosition(manageLocation);
-  setTimeout(updateLocation, 9999)
+  setTimeout(updateLocation, 999)
 }
 
 
