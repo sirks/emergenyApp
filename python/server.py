@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-nearby_degrees = 0.5
+nearby_degrees = 99
 sosses = {}
 
 
@@ -18,7 +18,7 @@ sosses = {}
 def polygons():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    polygon = userdanger((lat, lon), 2222)
+    polygon = userdanger((lat, lon), 9999)
     return json.dumps(polygon)
 
 
