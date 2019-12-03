@@ -57,7 +57,7 @@ function manageLocation(position) {
   const myLocation = [position.coords.latitude, position.coords.longitude];
   console.log(`new location ${myLocation}`);
   if (myLocationMarker) {
-    myLocationMarker = L.marker(myLocation).update(myLocationMarker);
+    myLocationMarker.setLatLng(myLocation).update();
   } else {
     mymap.setView(myLocation, 10);
     myLocationMarker = L.marker(myLocation, {icon: myLocationIcon}).addTo(mymap);
