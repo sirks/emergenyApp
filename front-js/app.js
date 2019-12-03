@@ -122,7 +122,6 @@ function unSos() {
 }
 
 function manageSosses(myLocation) {
-  navigator.geolocation.getCurrentPosition(saveSos);
   fetch(`https://${location.hostname}:5000/api/sosses/?id=${myId}&lat=${myLocation[0]}&lon=${myLocation[1]}`)
   .then(resp => resp.json())
   .then(json => drawSosses(json))
