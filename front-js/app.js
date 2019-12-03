@@ -22,7 +22,7 @@ function getMyId() {
 
 const myId = getMyId();
 
-let mymap = L.map('map').setView([0, 0], 10);
+let mymap = L.map('map').setView([0, 0], 4);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
 .addTo(mymap);
@@ -59,7 +59,7 @@ function manageLocation(position) {
   if (myLocationMarker) {
     myLocationMarker.setLatLng(myLocation).update();
   } else {
-    mymap.setView(myLocation, 10);
+    mymap.setView(myLocation, 4);
     myLocationMarker = L.marker(myLocation, {icon: myLocationIcon}).addTo(mymap);
   }
   manageSosses(myLocation);
@@ -149,12 +149,3 @@ function drawSosses(sosses) {
     delete mySosses[id]
   });
 }
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.fixed-action-btn');
-//   var instances = M.FloatingActionButton.init(elems, {
-//     direction: 'left',
-//     hoverEnabled: false
-//   });
-// });
