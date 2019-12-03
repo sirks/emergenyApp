@@ -87,7 +87,6 @@ function managePolygons(position) {
 }
 
 function drawPolygons(polygons) {
-  console.log(`drawing ${polygons}`);
   if (!polygons) {
     return;
   }
@@ -129,7 +128,6 @@ function manageSosses(myLocation) {
 }
 
 function drawSosses(sosses) {
-  console.log(`drawing ${sosses}`);
   if (!sosses) {
     return;
   }
